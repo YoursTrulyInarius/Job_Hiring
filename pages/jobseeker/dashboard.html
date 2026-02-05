@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Seeker Dashboard - Job Hiring System</title>
+    <link rel="stylesheet" href="../../assets/css/global.css">
+    <link rel="stylesheet" href="../../assets/css/components.css">
+    <link rel="stylesheet" href="../../assets/css/pages.css">
+    <link rel="stylesheet" href="../../assets/css/animations.css">
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="container nav-content">
+            <a href="../../index.html" class="nav-brand">JobHub</a>
+            <div class="nav-links">Loading...</div>
+        </div>
+    </nav>
+
+    <main class="container">
+        <div class="dashboard-grid">
+            <aside class="dashboard-sidebar">
+                <div class="flex flex-col items-center gap-1 mb-2" style="flex-direction: column; text-align: center;">
+                    <img src="https://ui-avatars.com/api/?name=Job+Seeker&background=random" id="profile-img"
+                        class="profile-avatar-large" alt="Profile">
+                    <div class="mt-1">
+                        <label for="profile-upload" class="profile-upload-label" id="upload-btn-text">Change
+                            Photo</label>
+                        <input type="file" id="profile-upload" hidden accept="image/*"
+                            onchange="handleProfileUpload(this)">
+                    </div>
+                    <div class="mt-1">
+                        <h4 style="margin: 0;" id="user-name">Job Seeker</h4>
+                        <span class="text-muted text-sm">Dashboard</span>
+                    </div>
+                </div>
+                <hr style="border: 0; border-top: 1px solid var(--border-color); margin: 1rem 0;">
+                <h4 class="text-sm text-muted">My Applications</h4>
+                <div id="my-applications" class="mt-1" style="font-size: 0.9rem;">
+                    Loading...
+                </div>
+            </aside>
+
+            <div class="dashboard-main">
+                <div class="card mb-2"
+                    style="background: linear-gradient(135deg, #475569 0%, #334155 100%); color: white;">
+                    <h3 style="color: white !important;">Find your next opportunity</h3>
+                    <div class="flex gap-1 mt-1">
+                        <input type="text" id="search-input" class="form-input" placeholder="Search keywords..."
+                            style="border: none;">
+                        <select id="location-select" class="form-select" style="width: 150px; border: none;">
+                            <option value="">Any Location</option>
+                            <option value="Remote">Remote</option>
+                            <option value="New York">New York</option>
+                            <option value="London">London</option>
+                        </select>
+                        <button onclick="filterJobs()" class="btn btn-accent">Search</button>
+                    </div>
+                </div>
+
+                <h3 class="mb-1">Latest Jobs</h3>
+                <div id="jobs-container" style="display: flex; flex-direction: column; gap: 1rem;">
+                    <!-- Jobs loaded here -->
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="../../assets/js/utils.js"></script>
+    <script src="../../assets/js/auth.js"></script>
+    <script src="../../assets/js/jobs.js"></script>
+    <script src="../../assets/js/applications.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const user = checkAuth('jobseeker');
+            if (user) {
+                document.getElementById('user-name').textContent = user.full_name;
+                if (user.profile_picture) {
+                    document.getElementById('profile-img').src = '/Job_Hiring/assets/uploads/profile_pictures/' + user.profile_picture;
+                } else {
+                    document.getElementById('profile-img').src = `https://ui-avatars.com/api/?name=${encodeURIComponent(user.full_name)}&size=100&background=random`;
+                }
+                loadJobs('jobs-container');
+                loadMyApplications();
+            }
+        });
+
+        function filterJobs() {
+            const location = document.getElementById('location-select').value;
+            // Search text not implemented in API list.php currently, only location and type
+            // But we can add location filter
+            loadJobs('jobs-container', { location });
+        }
+    </script>
+</body>
+
+</html>

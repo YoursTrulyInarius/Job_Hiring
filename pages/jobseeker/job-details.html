@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Details - Job Hiring System</title>
+    <link rel="stylesheet" href="../../assets/css/global.css">
+    <link rel="stylesheet" href="../../assets/css/components.css">
+    <link rel="stylesheet" href="../../assets/css/pages.css">
+    <link rel="stylesheet" href="../../assets/css/animations.css">
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="container nav-content">
+            <a href="../../index.html" class="nav-brand">JobHub</a>
+            <div class="nav-links">Loading...</div>
+        </div>
+    </nav>
+
+    <div class="job-header">
+        <div class="container">
+            <h1 id="job-title">Loading...</h1>
+            <div class="job-header-meta">
+                <!-- Meta info populated by JS -->
+            </div>
+
+            <div class="mt-2" id="apply-section">
+                <a href="#application-form" class="btn btn-accent">Apply Now</a>
+            </div>
+        </div>
+    </div>
+
+    <main class="container">
+        <div class="dashboard-grid">
+            <div class="dashboard-main">
+                <div class="card mb-2">
+                    <h3>Description</h3>
+                    <div id="job-description" class="mt-1 text-muted"></div>
+
+                    <h3 class="mt-2">Requirements</h3>
+                    <div id="job-requirements" class="mt-1 text-muted"></div>
+                </div>
+            </div>
+
+            <aside class="dashboard-sidebar" style="position: sticky; top: 100px;">
+                <div id="application-form-container">
+                    <h3>Apply for this position</h3>
+                    <hr style="margin: 1rem 0; border: 0; border-top: 1px solid var(--border-color);">
+
+                    <form id="application-form" onsubmit="handleApplicationSubmit(event)">
+                        <input type="hidden" name="job_id" id="job-id-input">
+
+                        <div class="form-group">
+                            <label class="form-label">Resume / CV</label>
+                            <input type="file" name="resume" class="form-input" accept=".pdf,.doc,.docx" required>
+                            <small class="text-muted">PDF, DOC, DOCX (Max 5MB)</small>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Cover Letter (Optional)</label>
+                            <textarea name="cover_letter" class="form-textarea"
+                                placeholder="Why are you a good fit?"></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary" style="width: 100%;">Submit Application</button>
+                    </form>
+                </div>
+            </aside>
+        </div>
+    </main>
+
+    <script src="../../assets/js/utils.js"></script>
+    <script src="../../assets/js/jobs.js"></script>
+    <script src="../../assets/js/applications.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            checkAuth(); // Allow any auth user to view, but apply only if jobseeker
+            loadJobDetails();
+
+            // Hide application form if employer
+            const user = JSON.parse(localStorage.getItem('user'));
+            if (user && user.user_type === 'employer') {
+                document.getElementById('application-form-container').innerHTML = `
+                    <div class="alert alert-warning">
+                        Employers cannot apply for jobs.
+                    </div>
+                `;
+                document.getElementById('apply-section').style.display = 'none';
+            }
+        });
+    </script>
+</body>
+
+</html>
