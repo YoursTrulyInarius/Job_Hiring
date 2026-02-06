@@ -49,13 +49,16 @@ function showAlert(message, type = 'error') {
 
     const alert = document.createElement('div');
     alert.className = `alert alert-${type}`;
+    alert.style.animation = 'slideIn 0.3s ease-out';
     alert.textContent = message;
 
     alertContainer.appendChild(alert);
 
     // Auto dismiss
     setTimeout(() => {
-        alert.remove();
+        alert.style.opacity = '0';
+        alert.style.transition = 'opacity 0.3s ease';
+        setTimeout(() => alert.remove(), 300);
     }, 5000);
 }
 

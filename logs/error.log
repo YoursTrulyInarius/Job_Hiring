@@ -3,3 +3,10 @@
 [06-Feb-2026 02:18:40 Asia/Manila] PHP Warning:  Undefined array key "profile_picture" in C:\xampp\htdocs\Job_Hiring\api\auth\login.php on line 77
 [06-Feb-2026 02:20:21 Asia/Manila] PHP Warning:  Undefined array key "profile_picture" in C:\xampp\htdocs\Job_Hiring\api\auth\login.php on line 77
 [06-Feb-2026 02:21:04 Asia/Manila] PHP Warning:  Undefined array key "profile_picture" in C:\xampp\htdocs\Job_Hiring\api\auth\login.php on line 77
+[07-Feb-2026 04:38:50 Asia/Manila] Registration Error: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'phone' in 'field list'
+[07-Feb-2026 04:38:52 Asia/Manila] Registration Error: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'phone' in 'field list'
+[07-Feb-2026 04:39:15 Asia/Manila] Registration Error: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'phone' in 'field list'
+[07-Feb-2026 04:40:21 Asia/Manila] Registration Error: SQLSTATE[42S22]: Column not found: 1054 Unknown column 'phone' in 'field list'
+[07-Feb-2026 04:41:35 Asia/Manila] PHP Warning:  Undefined array key "profile_picture" in C:\xampp\htdocs\Job_Hiring\api\auth\login.php on line 84
+[07-Feb-2026 04:42:18 Asia/Manila] PHP Warning:  Undefined array key "profile_picture" in C:\xampp\htdocs\Job_Hiring\api\auth\login.php on line 84
+[07-Feb-2026 04:42:48 Asia/Manila] PHP Warning:  Undefined array key "profile_picture" in C:\xampp\htdocs\Job_Hiring\api\auth\login.php on line 84
