@@ -13,12 +13,37 @@
         .jobs-section {
             background-color: var(--bg-color);
             padding-bottom: 4rem;
+            padding-top: 2rem;
         }
 
         .container-sm {
             max-width: 1000px;
             margin: 0 auto;
             padding: 0 20px;
+        }
+
+        /* Enhanced smooth transitions */
+        * {
+            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Smooth section title */
+        .jobs-section h2 {
+            position: relative;
+            display: inline-block;
+            padding-bottom: 1rem;
+        }
+
+        .jobs-section h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent-color), var(--primary-color));
+            border-radius: 2px;
         }
     </style>
 </head>

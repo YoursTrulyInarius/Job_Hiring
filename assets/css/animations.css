@@ -37,6 +37,54 @@
     }
 }
 
+@keyframes shimmer {
+    0% {
+        background-position: -1000px 0;
+    }
+
+    100% {
+        background-position: 1000px 0;
+    }
+}
+
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+@keyframes ripple {
+    0% {
+        transform: scale(0);
+        opacity: 1;
+    }
+
+    100% {
+        transform: scale(4);
+        opacity: 0;
+    }
+}
+
+@keyframes gradientShift {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
 /* Apply Animations */
 body {
     animation: fadeIn 0.6s ease-out;
@@ -44,23 +92,239 @@ body {
 
 .card,
 .auth-container {
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+        box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+        border-color 0.3s ease;
 }
 
 .btn {
     position: relative;
     overflow: hidden;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Button Ripple Effect */
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+.btn:hover::before {
+    width: 300px;
+    height: 300px;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
 }
 
 .btn:active {
-    transform: scale(0.98);
+    transform: translateY(0) scale(0.98);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
 }
 
-/* Hover Effects */
+/* Enhanced Button Hover States */
+.btn-lg {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.btn-lg:hover {
+    transform: translateY(-3px) scale(1.02);
+}
+
+/* Navigation Hover Effects */
 .nav-link {
+    position: relative;
     transition: color 0.3s ease;
 }
 
-.form-input:focus {
+.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--accent-color);
+    transition: width 0.3s ease;
+}
+
+.nav-link:hover::after {
+    width: 100%;
+}
+
+.nav-brand {
+    transition: all 0.3s ease;
+}
+
+.nav-brand:hover {
+    transform: scale(1.05);
+    color: var(--accent-color);
+}
+
+/* Form Input Animations */
+.form-input,
+.form-select,
+.form-textarea {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.form-input:focus,
+.form-select:focus,
+.form-textarea:focus {
     transform: scale(1.01);
+}
+
+/* Card Hover Enhancements */
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+}
+
+/* Hero Section Animations */
+.hero-title {
+    animation: fadeIn 0.8s ease-out 0.2s both;
+}
+
+.hero-subtitle {
+    animation: fadeIn 0.8s ease-out 0.4s both;
+}
+
+.hero-section .btn {
+    animation: fadeIn 0.8s ease-out 0.6s both;
+}
+
+/* Smooth Scroll */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Link Hover Effects */
+a {
+    transition: all 0.3s ease;
+}
+
+a:hover {
+    opacity: 0.8;
+    transform: translateX(2px);
+}
+
+/* Form Group Stagger Animation */
+.form-group {
+    animation: fadeIn 0.5s ease-out backwards;
+}
+
+.form-group:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+.form-group:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.form-group:nth-child(3) {
+    animation-delay: 0.3s;
+}
+
+.form-group:nth-child(4) {
+    animation-delay: 0.4s;
+}
+
+.form-group:nth-child(5) {
+    animation-delay: 0.5s;
+}
+
+/* Enhanced Form Label */
+.form-label {
+    transition: all 0.3s ease;
+    display: inline-block;
+}
+
+.form-group:hover .form-label {
+    color: var(--primary-color);
+    transform: translateX(2px);
+}
+
+/* Form Submit Button Animation */
+form .btn[type="submit"] {
+    animation: fadeIn 0.5s ease-out 0.6s backwards;
+    position: relative;
+    overflow: hidden;
+}
+
+form .btn[type="submit"]::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.4);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+form .btn[type="submit"]:hover::after {
+    width: 400px;
+    height: 400px;
+}
+
+/* Enhanced Focus Glow */
+.form-input:focus,
+.form-select:focus,
+.form-textarea:focus {
+    box-shadow: 0 0 0 3px rgba(249, 115, 22, 0.1),
+        0 4px 12px rgba(249, 115, 22, 0.15);
+}
+
+/* Badge Animations */
+.badge {
+    transition: all 0.3s ease;
+}
+
+.badge:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Loading Animation */
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Stagger Animation for Job Cards */
+.job-card {
+    animation: fadeIn 0.5s ease-out backwards;
+}
+
+.job-card:nth-child(1) {
+    animation-delay: 0.1s;
+}
+
+.job-card:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.job-card:nth-child(3) {
+    animation-delay: 0.3s;
+}
+
+.job-card:nth-child(4) {
+    animation-delay: 0.4s;
+}
+
+.job-card:nth-child(5) {
+    animation-delay: 0.5s;
 }
