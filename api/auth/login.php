@@ -18,7 +18,14 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 
 try {
     // Get JSON input
-    $input = json_decode(file_get_contents('php://input'), true);
+    $json = file_get_contents('php://input');
+    $input = json_decode($json, true);
+
+    if (json_last_error() !== JSON_ERROR_NONE) {
+        http_response_code(400);
+        echo json_encode(['success' => false, 'message' => 'Invalid JSON data provided']);
+        exit;
+    }
 
     // Validate required fields
     if (empty($input['email']) || empty($input['password'])) {
@@ -38,7 +45,7 @@ try {
     }
 
     // Fetch user by email
-    $query = "SELECT id, email, password, full_name, user_type, phone FROM users WHERE email = :email";
+    $query = "SELECT id, email, password, full_name, user_type FROM users WHERE email = :email";
     $stmt = $conn->prepare($query);
     $stmt->bindParam(':email', $input['email']);
     $stmt->execute();
@@ -74,8 +81,7 @@ try {
             'full_name' => $user['full_name'],
             'email' => $user['email'],
             'user_type' => $user['user_type'],
-            'profile_picture' => $user['profile_picture'],
-            'phone' => $user['phone']
+            'profile_picture' => $user['profile_picture']
         ]
     ]);
 

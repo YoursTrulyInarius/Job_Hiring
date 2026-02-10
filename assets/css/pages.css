@@ -363,14 +363,55 @@
 }
 
 /* Responsive */
+/* Responsive */
 @media (max-width: 768px) {
-    .dashboard-grid {
-        grid-template-columns: 1fr;
+
+    /* Auth Pages: Stack vertical, hide decoration on very small screens if needed, 
+       but for now we just stack them. */
+    .auth-split-layout {
+        flex-direction: column;
+    }
+
+    .auth-left {
+        flex: 0 0 200px;
+        /* Limit height of the banner on mobile */
+        padding: 1.5rem;
+    }
+
+    .auth-left-content h1 {
+        font-size: 2rem;
+    }
+
+    .auth-left-content p {
+        font-size: 1rem;
+    }
+
+    .auth-right {
+        flex: 1;
+        padding: 1.5rem;
+    }
+
+    /* Navbar: Simple stack for mobile */
+    .nav-content {
+        flex-direction: column;
+        gap: 1rem;
+        padding: 1rem 0;
+    }
+
+    .navbar {
+        height: auto;
+        padding: 0.5rem 0;
     }
 
     .nav-links {
-        display: none;
-        /* simple mobile hide for now */
+        gap: 1rem;
+        width: 100%;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .dashboard-grid {
+        grid-template-columns: 1fr;
     }
 
     .job-header-meta {
@@ -378,8 +419,10 @@
         gap: 0.5rem;
     }
 
+    /* Wrap tables */
     .table {
         display: block;
         overflow-x: auto;
+        white-space: nowrap;
     }
 }

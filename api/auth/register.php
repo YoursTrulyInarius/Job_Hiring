@@ -18,7 +18,14 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 
 try {
     // Get JSON input
-    $input = json_decode(file_get_contents('php://input'), true);
+    $json = file_get_contents('php://input');
+    $input = json_decode($json, true);
+
+    if (json_last_error() !== JSON_ERROR_NONE) {
+        http_response_code(400);
+        echo json_encode(['success' => false, 'message' => 'Invalid JSON data provided']);
+        exit;
+    }
 
     // Validate required fields
     $required_fields = ['email', 'password', 'full_name', 'user_type'];
@@ -83,16 +90,14 @@ try {
     $hashed_password = password_hash($input['password'], PASSWORD_DEFAULT);
 
     // Insert new user
-    $insert_query = "INSERT INTO users (email, password, full_name, user_type, phone) 
-                     VALUES (:email, :password, :full_name, :user_type, :phone)";
+    $insert_query = "INSERT INTO users (email, password, full_name, user_type) 
+                     VALUES (:email, :password, :full_name, :user_type)";
     $insert_stmt = $conn->prepare($insert_query);
-    
+
     $insert_stmt->bindParam(':email', $input['email']);
     $insert_stmt->bindParam(':password', $hashed_password);
     $insert_stmt->bindParam(':full_name', $input['full_name']);
     $insert_stmt->bindParam(':user_type', $input['user_type']);
-    $phone = $input['phone'] ?? null;
-    $insert_stmt->bindParam(':phone', $phone);
 
     if ($insert_stmt->execute()) {
         http_response_code(201);
@@ -109,7 +114,7 @@ try {
 } catch (PDOException $e) {
     error_log("Registration Error: " . $e->getMessage());
     http_response_code(500);
-    echo json_encode(['success' => false, 'message' => 'An error occurred during registration']);
+    echo json_encode(['success' => false, 'message' => 'Registration Error: ' . $e->getMessage()]);
 } catch (Exception $e) {
     error_log("Registration Error: " . $e->getMessage());
     http_response_code(500);

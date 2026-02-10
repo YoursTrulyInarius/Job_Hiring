@@ -5,7 +5,7 @@
 A comprehensive job hiring platform connecting employers with job seekers. Built with a focus on clean design and user experience.
 
 ## 👨‍💻 Developed By
-**sonjebgwapo**
+**sonjeb**
 
 ---
 
